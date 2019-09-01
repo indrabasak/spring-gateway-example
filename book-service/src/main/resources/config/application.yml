@@ -1,0 +1,69 @@
+
+# For Spring Actuator /info endpoint
+info:
+    artifact: spring-k8s-prom
+    name: spring-k8s-prom
+    description: Spring Boot with Kubernetes and Prometheus Example
+    version: 1.0.0
+
+#management:
+#  security:
+#    enabled: false
+#  health:
+#    consul:
+#      enabled: false   # must be false to pass /health check
+
+#Exposes Spring actuator endpoints
+management:
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+    details:
+      enabled: true
+    application:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /
+      expose: "*"
+
+
+
+#logging:
+#  level:
+#    org.springframework: DEBUG
+
+
+# Enable SSL
+server:
+  port: 8080
+
+
+# Setup security
+security:
+  auth:
+    endpoints:
+      endpoint1:
+        path: /books
+        methods: POST
+        roles: BOOK_WRITE
+      endpoint2:
+        path: /books/**
+        methods: GET
+        roles: BOOK_WRITE, BOOK_READ
+    users:
+      userA:
+        encoding: bcrypt
+        password: $2a$10$n5v7onFOS0h2V2oLmyqK9uJdZRHpIghP2rFia86ALodCUfEwm4rme
+        roles: BOOK_WRITE, BOOK_READ
+      userB:
+        encoding: bcrypt
+        password: $2a$10$8nznpBdaZ/v19Os5v02iAOkJg0IJW5bo2uj1p3U2rd4icfmqB/dRy
+        roles: BOOK_READ

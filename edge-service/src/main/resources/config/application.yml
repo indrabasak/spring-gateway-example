@@ -1,0 +1,69 @@
+
+# For Spring Actuator /info endpoint
+info:
+  artifact: spring-edge
+  name: spring-edge
+  description: Spring Boot Edge Service Example using Spring Cloud Gateway
+  version: 1.0.0
+
+#management:
+#  security:
+#    enabled: false
+#  health:
+#    consul:
+#      enabled: false   # must be false to pass /health check
+
+#Exposes Spring actuator endpoints
+management:
+  health:
+    diskspace:
+      enabled: true
+    db:
+      enabled: true
+    defaults:
+      enabled: true
+    details:
+      enabled: true
+    application:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /
+      expose: "*"
+
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: book-id
+          uri: http://localhost:8080
+          predicates:
+            - Path=/books/**
+          filters:
+            - PrefixPath=/public
+            - AddRequestHeader=X-Request-Foo, Bar
+            - AddRequestTimeHeaderPreFilter
+            - AddResponseHeader=X-Response-Bye, Bye
+            - AddResponseTimeHeaderPostFilter
+
+
+security:
+  auth:
+    routes:
+      book-id:
+        user: userA
+        password: passwordA
+        authenticatorClasses:
+          - com.basaki.edge.security.BasicAuthenticator
+
+
+#logging:
+#  level:
+#    org.springframework: DEBUG
+
+server:
+  port: 9080
