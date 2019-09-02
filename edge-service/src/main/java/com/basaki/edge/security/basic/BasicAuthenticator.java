@@ -4,7 +4,7 @@ import com.basaki.edge.security.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
-public class BasicAuthenticator implements Authenticator<BasicAuthCredentials, BasicAuthExtractor> {
+public class BasicAuthenticator implements Authenticator<BasicAuthCredentials> {
 
     private BasicAuthProvider provider;
 

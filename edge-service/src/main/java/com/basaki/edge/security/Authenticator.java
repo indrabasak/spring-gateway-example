@@ -2,7 +2,7 @@ package com.basaki.edge.security;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
 
-public interface Authenticator<C extends Credentials, A extends AuthenticationExtractor<C>> {
+public interface Authenticator<C extends Credentials> {
 
     C extract(ServerHttpRequest request);
 
