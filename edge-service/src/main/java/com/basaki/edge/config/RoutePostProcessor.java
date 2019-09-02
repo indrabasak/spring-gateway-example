@@ -28,13 +28,13 @@ public class RoutePostProcessor implements SmartLifecycle {
     public void start() {
         properties.getRoutes().forEach((id, route) -> {
             log.debug("Processing route {}", id);
-            Class[] clazzes = route.getAuthenticatorClasses();
-            Authenticator[] authenticators = new Authenticator[clazzes.length];
+            Class[] classes = route.getAuthenticatorClasses();
+            Authenticator[] authenticators = new Authenticator[classes.length];
 
-            for (int i = 0; i < clazzes.length; i++) {
+            for (int i = 0; i < classes.length; i++) {
                 Authenticator bean;
                 try {
-                    bean = (Authenticator) context.getAutowireCapableBeanFactory().createBean(clazzes[i]);
+                    bean = (Authenticator) context.getAutowireCapableBeanFactory().createBean(classes[i]);
                 } catch (BeansException e) {
                     throw new BadConfigurationException(
                             "Could not find bean of requested type for route " + id);
@@ -45,10 +45,8 @@ public class RoutePostProcessor implements SmartLifecycle {
                     throw new BadConfigurationException(
                             "Invalid configuration. Authentication must be an instance of Authenticator.");
                 }
-
                 authenticators[i] = bean;
             }
-
             route.setAuthenticators(authenticators);
         });
     }

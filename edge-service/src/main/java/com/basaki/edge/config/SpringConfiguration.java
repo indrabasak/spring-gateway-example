@@ -3,8 +3,11 @@ package com.basaki.edge.config;
 import com.basaki.edge.exception.BadConfigurationException;
 import com.basaki.edge.security.Authenticator;
 import com.basaki.edge.security.SecurityAuthProperties;
+import com.basaki.edge.security.basic.BasicAuthProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +21,11 @@ public class SpringConfiguration {
     @Autowired
     public SpringConfiguration(SecurityAuthProperties properties) {
         this.properties = properties;
+    }
+
+    @Bean
+    public BasicAuthProvider getBasicAuthProvider() {
+        return new BasicAuthProvider(properties.getUser(), properties.getPassword());
     }
 
     @PostConstruct

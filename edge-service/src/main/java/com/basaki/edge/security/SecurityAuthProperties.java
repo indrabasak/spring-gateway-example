@@ -15,6 +15,10 @@ import java.util.Map;
 @Setter
 public class SecurityAuthProperties {
 
+    private String user;
+
+    private String password;
+
     private Map<String, Route> routes = new HashMap<>();
 
     @PostConstruct

@@ -53,12 +53,14 @@ spring:
 
 security:
   auth:
+    user: jdoe
+    password: hello
     routes:
       book-id:
         user: userA
         password: passwordA
         authenticatorClasses:
-          - com.basaki.edge.security.BasicAuthenticator
+          - com.basaki.edge.security.basic.BasicAuthenticator
 
 
 #logging:

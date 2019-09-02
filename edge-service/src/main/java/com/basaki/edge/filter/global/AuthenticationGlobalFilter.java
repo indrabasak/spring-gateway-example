@@ -1,7 +1,9 @@
 package com.basaki.edge.filter.global;
 
-import com.basaki.edge.security.BasicAuthCredentials;
-import com.basaki.edge.security.BasicAuthExtractor;
+import com.basaki.edge.exception.AuthenticationException;
+import com.basaki.edge.exception.BadCredentialsException;
+import com.basaki.edge.security.Authenticator;
+import com.basaki.edge.security.Credentials;
 import com.basaki.edge.security.SecurityAuthProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +22,36 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
 
     private SecurityAuthProperties properties;
 
-    private BasicAuthExtractor extractor;
-
     @Autowired
     public AuthenticationGlobalFilter(SecurityAuthProperties properties) {
         this.properties = properties;
-        extractor = new BasicAuthExtractor();
     }
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+        log.info("AuthenticationGlobalFilter - start");
 
+        Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         if (route != null) {
-            log.info("AuthenticationGlobalFilter - start");
             SecurityAuthProperties.Route routeSecurity = properties.getRoutes().get(route.getId());
-            System.out.println(routeSecurity.getUser() + " - " + routeSecurity.getPassword());
-            BasicAuthCredentials info = extractor.extract(exchange.getRequest());
-            exchange.getAttributes().put("AUTH_INFO", info);
+
+            Authenticator[] authenticators = routeSecurity.getAuthenticators();
+            if (authenticators != null & authenticators.length > 0) {
+                boolean success = false;
+                for (Authenticator authenticator : authenticators) {
+                    if (authenticate(exchange, authenticator)) {
+                        success = true;
+                        break;
+                    }
+                }
+
+                if (!success) {
+                    throw new AuthenticationException("Authentication failed");
+                }
+            }
         }
+
+        log.info("AuthenticationGlobalFilter - end");
 
         return chain.filter(exchange);
     }
@@ -46,5 +59,25 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() {
         return 0;
+    }
+
+    private boolean authenticate(ServerWebExchange exchange,
+                                 Authenticator authenticator) {
+        boolean success = false;
+        Credentials credentials = null;
+
+        try {
+            credentials = authenticator.extract(exchange.getRequest());
+        } catch (BadCredentialsException e) {
+            log.info(e.getMessage());
+        }
+
+        if (credentials != null) {
+            authenticator.authenticate(credentials);
+            exchange.getAttributes().put("AUTH_CREDENTIALS", credentials);
+            success = true;
+        }
+
+        return success;
     }
 }
