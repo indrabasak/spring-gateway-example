@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Component
 @Slf4j
+@SuppressWarnings({"squid:S2094"})
 public class AddResponseTimeHeaderPostFilter
         extends AbstractGatewayFilterFactory<AddResponseTimeHeaderPostFilter.Config> {
 

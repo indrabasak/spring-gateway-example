@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Component
 @Slf4j
+@SuppressWarnings({"squid:S2094"})
 public class AddRequestTimeHeaderPreFilter extends AbstractGatewayFilterFactory<AddRequestTimeHeaderPreFilter.Config> {
 
     private static final String HEADER_TXN_DATE = "X-TXN-DATE";

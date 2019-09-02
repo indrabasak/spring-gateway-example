@@ -49,7 +49,12 @@ spring:
             - AddRequestTimeHeaderPreFilter
             - AddResponseHeader=X-Response-Bye, Bye
             - AddResponseTimeHeaderPostFilter
-
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://ibasak.auth0.com/
+          audience: https://quickstarts/api
 
 security:
   auth:
@@ -61,6 +66,7 @@ security:
         password: passwordA
         authenticatorClasses:
           - com.basaki.edge.security.basic.BasicAuthenticator
+          - com.basaki.edge.security.oauth2.JwtAuthenticator
 
 
 #logging:
@@ -69,3 +75,5 @@ security:
 
 server:
   port: 9080
+
+#spring.security.oauth2.resourceserver.jwt.issuer-uri

@@ -64,18 +64,14 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
     private boolean authenticate(ServerWebExchange exchange,
                                  Authenticator authenticator) {
         boolean success = false;
-        Credentials credentials = null;
+        Credentials credentials;
 
         try {
-            credentials = authenticator.extract(exchange.getRequest());
-        } catch (BadCredentialsException e) {
-            log.info(e.getMessage());
-        }
-
-        if (credentials != null) {
-            authenticator.authenticate(credentials);
+            credentials = authenticator.authenticate(exchange.getRequest());
             exchange.getAttributes().put("AUTH_CREDENTIALS", credentials);
             success = true;
+        } catch (BadCredentialsException e) {
+            log.info(e.getMessage());
         }
 
         return success;

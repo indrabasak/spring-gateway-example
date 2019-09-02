@@ -17,12 +17,10 @@ public class BasicAuthenticator implements Authenticator<BasicAuthCredentials> {
     }
 
     @Override
-    public BasicAuthCredentials extract(ServerHttpRequest request) {
-        return extractor.extract(request);
-    }
-
-    @Override
-    public void authenticate(BasicAuthCredentials credentials) {
+    public BasicAuthCredentials authenticate(ServerHttpRequest request) {
+        BasicAuthCredentials credentials = extractor.extract(request);
         provider.authenticate(credentials.getUser(), credentials.getPassword());
+
+        return credentials;
     }
 }
