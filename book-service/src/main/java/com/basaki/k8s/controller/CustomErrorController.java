@@ -1,9 +1,6 @@
 package com.basaki.k8s.controller;
 
 import com.basaki.k8s.error.ErrorInfo;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * {@code CustomErrorController} used for showing error messages.
@@ -49,12 +49,12 @@ public class CustomErrorController implements ErrorController {
 
     @GetMapping(value = PATH)
     public ResponseEntity<ErrorInfo> error(HttpServletRequest request,
-            HttpServletResponse response) {
+                                           HttpServletResponse response) {
         WebRequest webRequest =
                 new ServletWebRequest(request);
         Map<String, Object> attributes =
                 errorAttributes.getErrorAttributes(webRequest,
-                        Boolean.getBoolean(debug));
+                                                   Boolean.getBoolean(debug));
 
         ErrorInfo info = new ErrorInfo();
         info.setCode(response.getStatus());

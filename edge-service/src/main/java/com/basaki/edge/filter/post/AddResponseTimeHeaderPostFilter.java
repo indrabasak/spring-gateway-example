@@ -23,12 +23,8 @@ public class AddResponseTimeHeaderPostFilter
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             String timestamp = LocalDateTime.now().toString();
-
             log.debug("Adding txn date header {}", timestamp);
-
-            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                exchange.getResponse().getHeaders().add(HEADER_TXN_DATE, timestamp);
-            }));
+            return chain.filter(exchange).then(Mono.fromRunnable(() -> exchange.getResponse().getHeaders().add(HEADER_TXN_DATE, timestamp)));
         };
     }
 

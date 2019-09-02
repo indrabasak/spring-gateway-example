@@ -36,7 +36,7 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
             SecurityAuthProperties.Route routeSecurity = properties.getRoutes().get(route.getId());
 
             Authenticator[] authenticators = routeSecurity.getAuthenticators();
-            if (authenticators != null & authenticators.length > 0) {
+            if (authenticators != null && authenticators.length > 0) {
                 boolean success = false;
                 for (Authenticator authenticator : authenticators) {
                     if (authenticate(exchange, authenticator)) {
