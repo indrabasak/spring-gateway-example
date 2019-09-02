@@ -18,10 +18,10 @@ public class GenerateEncodedPassword {
                 PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
         String encodedPwd = passwordEncoder.encode("passwordA");
-        System.out.println("passwordA: " + encodedPwd);
+        //System.out.println("passwordA: " + encodedPwd);
 
         encodedPwd = passwordEncoder.encode("passwordB");
-        System.out.println("passwordB: " + encodedPwd);
+        //System.out.println("passwordB: " + encodedPwd);
 
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.firewall.RequestRejectedException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -46,7 +47,7 @@ public class CustomErrorController implements ErrorController {
         this.errorAttributes = errorAttributes;
     }
 
-    @RequestMapping(value = PATH)
+    @GetMapping(value = PATH)
     public ResponseEntity<ErrorInfo> error(HttpServletRequest request,
             HttpServletResponse response) {
         WebRequest webRequest =

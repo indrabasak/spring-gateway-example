@@ -43,8 +43,8 @@ public class BookController {
     public Book create(@RequestBody BookRequest request,
                        @RequestHeader("X-Request-Foo") String foo,
                        @RequestHeader("X-TXN-DATE") String timestamp) {
-        System.out.println("X-Request-Foo - " + foo);
-        System.out.println("X-TXN-DATE - " + timestamp);
+        log.info("X-Request-Foo - " + foo);
+        log.info("X-TXN-DATE - " + timestamp);
         return service.create(request);
     }
 
