@@ -59,8 +59,12 @@ public class BookControllerFunctionalTests {
                 .baseUri("http://localhost")
                 .port(port)
                 .contentType(ContentType.JSON)
+                //@RequestHeader("X-Request-Foo") String foo,
+                //                       @RequestHeader("X-TXN-DATE")
+                .header("X-Request-Foo", "bar")
+                .header("X-TXN-DATE", "2019-09-02T21:06:24.087Z")
                 .body(bookRequest)
-                .post("/books");
+                .post("/public/books");
         assertNotNull(response);
         assertEquals(201, response.getStatusCode());
         Book bookCreate =
@@ -76,7 +80,7 @@ public class BookControllerFunctionalTests {
                 .baseUri("http://localhost")
                 .port(port)
                 .contentType(ContentType.JSON)
-                .get("/books/" + bookCreate.getId().toString());
+                .get("public/books/" + bookCreate.getId().toString());
 
         assertNotNull(response);
         assertEquals(200, response.getStatusCode());
