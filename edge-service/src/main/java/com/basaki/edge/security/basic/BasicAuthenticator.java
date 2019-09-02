@@ -1,7 +1,5 @@
 package com.basaki.edge.security.basic;
 
-import com.basaki.edge.exception.AuthenticationException;
-import com.basaki.edge.exception.BadCredentialsException;
 import com.basaki.edge.security.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -24,12 +22,12 @@ public class BasicAuthenticator implements Authenticator<BasicAuthCredentials, B
     }
 
     @Override
-    public BasicAuthCredentials extract(ServerHttpRequest request) throws BadCredentialsException {
+    public BasicAuthCredentials extract(ServerHttpRequest request) {
         return extractor.extract(request);
     }
 
     @Override
-    public void authenticate(BasicAuthCredentials credentials) throws AuthenticationException {
+    public void authenticate(BasicAuthCredentials credentials) {
         provider.authenticate(credentials.getUser(), credentials.getPassword());
     }
 }

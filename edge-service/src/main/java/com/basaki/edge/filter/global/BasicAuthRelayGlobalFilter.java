@@ -38,7 +38,7 @@ public class BasicAuthRelayGlobalFilter implements GlobalFilter, Ordered {
         if (route != null) {
             SecurityAuthProperties.Route routeSecurity = properties.getRoutes().get(route.getId());
 
-            if (routeSecurity.getUser() != null & routeSecurity.getPassword() != null) {
+            if (routeSecurity.getUser() != null && routeSecurity.getPassword() != null) {
                 String encodedAuth = "Basic " + encoder.encode(routeSecurity.getUser()
                                                                        + ":" + routeSecurity.getPassword());
 
