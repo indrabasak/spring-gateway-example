@@ -18,6 +18,8 @@ public class RoutePostProcessor implements SmartLifecycle {
 
     private SecurityAuthProperties properties;
 
+    private boolean started;
+
     @Autowired
     public RoutePostProcessor(ApplicationContext context, SecurityAuthProperties properties) {
         this.context = context;
@@ -26,6 +28,7 @@ public class RoutePostProcessor implements SmartLifecycle {
 
     @Override
     public void start() {
+        started = true;
         properties.getRoutes().forEach((id, route) -> {
             log.debug("Processing route {}", id);
             Class[] classes = route.getAuthenticatorClasses();
@@ -53,11 +56,11 @@ public class RoutePostProcessor implements SmartLifecycle {
 
     @Override
     public void stop() {
-
+        started = false;
     }
 
     @Override
     public boolean isRunning() {
-        return false;
+        return started;
     }
 }

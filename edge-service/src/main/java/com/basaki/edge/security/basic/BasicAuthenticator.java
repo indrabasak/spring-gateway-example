@@ -17,11 +17,6 @@ public class BasicAuthenticator implements Authenticator<BasicAuthCredentials, B
     }
 
     @Override
-    public BasicAuthExtractor getExtractor() {
-        return extractor;
-    }
-
-    @Override
     public BasicAuthCredentials extract(ServerHttpRequest request) {
         return extractor.extract(request);
     }
