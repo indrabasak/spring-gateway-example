@@ -17,8 +17,8 @@ This is example of using Spring Cloud Gateway edge service with Spring Boot appl
 [sonarqube-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-gateway-example
 
 [technical-debt-ratio-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-gateway-example&metric=sqale_index
-[technical-debt-ratio-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-example 
+[technical-debt-ratio-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-gateway-example
 
 [coverage-badge]: https://sonarcloud.io/api/project_badges/measure?project=com.basaki%3Aspring-gateway-example&metric=coverage
-[coverage-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-k8s-example
+[coverage-badge-url]: https://sonarcloud.io/dashboard/index/com.basaki:spring-gateway-example
 
