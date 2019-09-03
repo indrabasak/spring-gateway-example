@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-gateway-book
+  name: spring-gateway-book-service
   namespace: gateway-example
 spec:
   selector:
@@ -16,3 +16,7 @@ spec:
     targetPort: 8081
     nodePort: 30081
     name: management
+  - port: 8888
+    targetPort: 8888
+    nodePort: 30088
+    name: jmx

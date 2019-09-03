@@ -25,11 +25,11 @@ spec:
           - containerPort: 8081
             name: management
         volumeMounts:
-          - name: spring-prom-config
+          - name: spring-gateway-book-config
             mountPath: /usr/local/example/config/env
             subPath: env
             readOnly: true
-          - name: spring-prom-config
+          - name: spring-gateway-book-config
             mountPath: /usr/local/example/config/application-deployed.yml
             subPath: application-deployed.yml # application yml
             readOnly: true

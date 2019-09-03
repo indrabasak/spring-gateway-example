@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: spring-gateway-edge
+  name: spring-gateway-edge-service
   namespace: gateway-example
 spec:
   selector:
@@ -10,9 +10,13 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 30080
+      nodePort: 31080
       name: http
     - port: 8081
       targetPort: 8081
-      nodePort: 30081
+      nodePort: 31081
       name: management
+    - port: 8888
+      targetPort: 8888
+      nodePort: 31088
+      name: jmx
