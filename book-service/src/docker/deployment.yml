@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-prom
-  namespace: example
+  name: spring-gateway-book
+  namespace: gateway-example
 spec:
   selector:
     matchLabels:
-      app: spring-prom-app
+      app: spring-gateway-book-app
   replicas: 1
   template:
     metadata:
       labels:
-        app: spring-prom-app
+        app: spring-gateway-book-app
     spec:
       containers:
-      - name: spring-prom-app
-        image: basaki/spring-k8s-prometheus:1.0.0
+      - name: spring-gateway-book-app
+        image: basaki/spring-gateway-book:1.0.0
         env:
           - name: SPRING_PROFILES_ACTIVE
             value: deployed
@@ -33,34 +33,13 @@ spec:
             mountPath: /usr/local/example/config/application-deployed.yml
             subPath: application-deployed.yml # application yml
             readOnly: true
-          - name: spring-prom-config
-            mountPath: /usr/local/example/config/prometheus.yml
-            subPath: prometheus.yml  # prometheus config
-            readOnly: true
         readinessProbe:
           httpGet:
             path: /health
             port: 8080
           initialDelaySeconds: 30
           periodSeconds: 1
-      - name: prometheus-jmx-exporter # metrics sidecar
-        image: sscaling/jmx-prometheus-exporter:0.11.0
-        imagePullPolicy: Always
-        resources:
-          limits:
-            memory: 200Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
-        env:
-          - name: SERVICE_PORT
-            value: "8083" # default 5556
-        volumeMounts:
-          - name: spring-prom-config
-            mountPath: /opt/jmx_exporter/config.yml
-            subPath: prometheus.yml # JMX exporter config
-            readOnly: true
       volumes:
-        - name: spring-prom-config
+        - name: spring-gateway-book-config
           configMap:
-            name: spring-prom-config
+            name: spring-gateway-book-config

@@ -3,7 +3,7 @@
 [![Technical debt ratio][technical-debt-ratio-badge]][technical-debt-ratio-badge-url] 
 [![Coverage][coverage-badge]][coverage-badge-url]
 
-![](./img/spring-gateway-example.svg)
+![](./img/spring-cloud-gateway.svg)
  
 Spring Cloud Gateway Example 
 ==============================

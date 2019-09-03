@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-gateway-edge
+  namespace: gateway-example
+spec:
+  selector:
+    matchLabels:
+      app: spring-gateway-edge-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spring-gateway-edge-app
+    spec:
+      containers:
+        - name: spring-gateway-edge-app
+          image: basaki/spring-gateway-edge:1.0.0
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: deployed
+          ports:
+            - containerPort: 8080
+              name: http
+            - containerPort: 8081
+              name: management
+          volumeMounts:
+            - name: spring-prom-config
+              mountPath: /usr/local/example/config/env
+              subPath: env
+              readOnly: true
+            - name: spring-prom-config
+              mountPath: /usr/local/example/config/application-deployed.yml
+              subPath: application-deployed.yml # application yml
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 1
+      volumes:
+        - name: spring-gateway-edge-config
+          configMap:
+            name: spring-gateway-edge-config
