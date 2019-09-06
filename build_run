@@ -1,0 +1,13 @@
+#! /bin/bash
+
+spring_profiles_active=dev,swagger
+
+mvn clean install
+
+pushd ./book-service
+
+echo Running spring boot app...
+echo Set server.port to change port
+SERVER_PORT=8080 mvn spring-boot:run -Dspring-boot.run.profiles=${spring_profiles_active}
+
+popd

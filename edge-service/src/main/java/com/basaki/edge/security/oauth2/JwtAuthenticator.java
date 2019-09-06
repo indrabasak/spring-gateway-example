@@ -32,8 +32,8 @@ public class JwtAuthenticator implements Authenticator<JwtCredentials> {
             credentials.setJwt(jwt);
 
             return credentials;
-        } catch (JwtException failed) {
-            log.error(failed.getMessage());
+        } catch (JwtException e) {
+            log.error(e.getMessage());
             throw new AuthenticationException("Invalid token!");
         }
     }

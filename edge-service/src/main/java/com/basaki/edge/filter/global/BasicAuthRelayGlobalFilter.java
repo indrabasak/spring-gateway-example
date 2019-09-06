@@ -9,16 +9,19 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import static com.basaki.edge.filter.global.OrderConstant.FILTER_ORDER_AUTH_RELAY;
+
 @Component
 @Slf4j
 public class BasicAuthRelayGlobalFilter implements GlobalFilter, Ordered {
 
-    private static final String HEADER_AUTH = "Authorization";
+    public static final String BASIC_AUTH_PREFIX = "Basic ";
 
     private SecurityAuthProperties properties;
 
@@ -39,12 +42,12 @@ public class BasicAuthRelayGlobalFilter implements GlobalFilter, Ordered {
             SecurityAuthProperties.Route routeSecurity = properties.getRoutes().get(route.getId());
 
             if (routeSecurity.getUser() != null && routeSecurity.getPassword() != null) {
-                String encodedAuth = "Basic " + encoder.encode(routeSecurity.getUser()
+                String encodedAuth = BASIC_AUTH_PREFIX + encoder.encode(routeSecurity.getUser()
                                                                        + ":" + routeSecurity.getPassword());
 
                 ServerHttpRequest request = exchange.getRequest()
                         .mutate()
-                        .headers(httpHeaders -> httpHeaders.set(HEADER_AUTH, encodedAuth))
+                        .headers(httpHeaders -> httpHeaders.set(HttpHeaders.AUTHORIZATION, encodedAuth))
                         .build();
 
                 return chain.filter(exchange.mutate().request(request).build());
@@ -58,6 +61,6 @@ public class BasicAuthRelayGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 1;
+        return FILTER_ORDER_AUTH_RELAY;
     }
 }

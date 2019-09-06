@@ -53,8 +53,12 @@ spring:
     oauth2:
       resourceserver:
         jwt:
+          # auth0
           issuer-uri: https://ibasak.auth0.com/
           audience: https://quickstarts/api
+          # okta
+#          issuer-uri: https://dev-461512.okta.com/oauth2/default
+#          audience: api://default
 
 security:
   auth:
@@ -76,4 +80,4 @@ security:
 server:
   port: 9080
 
-#spring.security.oauth2.resourceserver.jwt.issuer-uri
+

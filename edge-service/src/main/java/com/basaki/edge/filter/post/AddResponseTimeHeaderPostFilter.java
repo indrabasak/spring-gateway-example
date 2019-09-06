@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class AddResponseTimeHeaderPostFilter
         extends AbstractGatewayFilterFactory<AddResponseTimeHeaderPostFilter.Config> {
 
-    private static final String HEADER_TXN_DATE = "X-TXN-COMPLETION-DATE";
+    public static final String HEADER_TXN_DATE = "X-TXN-COMPLETION-DATE";
 
     public AddResponseTimeHeaderPostFilter() {
         super(AddResponseTimeHeaderPostFilter.Config.class);

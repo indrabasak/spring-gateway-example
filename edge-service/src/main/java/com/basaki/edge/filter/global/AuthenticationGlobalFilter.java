@@ -16,9 +16,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import static com.basaki.edge.filter.global.OrderConstant.FILTER_ORDER_AUTHENTICATION;
+
 @Component
 @Slf4j
 public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
+
+    public static final String AUTH_CREDENTIALS = "AUTH_CREDENTIALS";
 
     private SecurityAuthProperties properties;
 
@@ -58,7 +62,7 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return FILTER_ORDER_AUTHENTICATION;
     }
 
     private boolean authenticate(ServerWebExchange exchange,
@@ -68,7 +72,7 @@ public class AuthenticationGlobalFilter implements GlobalFilter, Ordered {
 
         try {
             credentials = authenticator.authenticate(exchange.getRequest());
-            exchange.getAttributes().put("AUTH_CREDENTIALS", credentials);
+            exchange.getAttributes().put(AUTH_CREDENTIALS, credentials);
             success = true;
         } catch (BadCredentialsException e) {
             log.info(e.getMessage());

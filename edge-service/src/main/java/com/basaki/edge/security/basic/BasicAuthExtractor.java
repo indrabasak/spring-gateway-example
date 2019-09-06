@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class BasicAuthExtractor implements AuthenticationExtractor<BasicAuthCredentials> {
 
-    private static final String PREFIX_BASIC = "Basic ";
+    public static final String PREFIX_BASIC = "Basic ";
 
     private Base64Encoder encoder;
 
