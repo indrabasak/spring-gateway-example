@@ -27,7 +27,7 @@ all its predicates is _true_.
   - A **filter** provides a way of modifying requests and responses.
 
 ### A Route Example
-Here's a simple route example used in this project,
+Here's a simple example of a route used in this project,
 
 ```yaml
 spring:
@@ -45,6 +45,10 @@ spring:
             - AddResponseHeader=X-Response-Bye, Bye
             - AddResponseTimeHeaderPostFilter
 ```
+
+### A Request Flow
+
+![](./img/gateway-example-flow.svg)
 
 
 [travis-badge]: https://travis-ci.org/indrabasak/spring-gateway-example.svg?branch=master
