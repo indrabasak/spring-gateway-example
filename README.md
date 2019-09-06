@@ -46,9 +46,20 @@ spring:
             - AddResponseTimeHeaderPostFilter
 ```
 
-### A Request Flow
+## Project Synopsis 
 
-![](./img/gateway-example-flow.svg)
+This example project consists of two modules:
+  - A **book-service** is a Spring Boot based REST service which provides creation and retrieval operation on a book 
+  resource. It uses Basic Auth for authentication.
+  
+  - An **edge-service** is a Spring Cloud Gateway and Spring Boot based Edge service. It routes incoming requests to the 
+  backend book service. It uses both Basic Auth and OAuth2 for authenticating a request. Once the request is authenticated, 
+  it forwards the request to the book service after replacing the authorization header with book service's basic 
+  auth credentials. 
+  
+Here is the flow of an incoming request and outgoing response in the example edge service.
+
+![](./img/gateway-example-flow-2.png)
 
 ### Types of Filter
 Gateway filters can be classified into 3 groups:
@@ -64,7 +75,7 @@ Gateway filters can be classified into 3 groups:
 This example didn't use Spring security framework as typically used in a Spring Boot application but took advantage of 
 the classes provided in the Spring security libraries.
 
-This example can use both **Basic Authentication** and as well as **Oauth 2.0 authentication**. 
+This example uses both **Basic Authentication** and **OAuth 2.0** for authenticating a request. 
 
 [travis-badge]: https://travis-ci.org/indrabasak/spring-gateway-example.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/spring-gateway-example/
