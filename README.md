@@ -177,6 +177,167 @@ spring:
           audience: api://default
 ```
 
+## [Build]
+To build the Spring JArs and as well as docker images, execute `mvn clean install` command from the parent directory:
+
+```bash
+$ mvn clean install
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.basaki:edge-service >-----------------------
+[INFO] Building edge-service 1.0.0
+[INFO] --------------------------------[ jar ]---------------------------------
+Downloading from iovation.central: https://maven.iovationnp.com/repository/public/net/minidev/json-smart/maven-metadata.xml
+Downloading from maven-central: http://repo1.maven.org/maven2/net/minidev/json-smart/maven-metadata.xml
+Downloaded from maven-central: http://repo1.maven.org/maven2/net/minidev/json-smart/maven-metadata.xml (849 B at 3.6 kB/s)
+Downloaded from iovation.central: https://maven.iovationnp.com/repository/public/net/minidev/json-smart/maven-metadata.xml (895 B at 642 B/s)
+[WARNING] The POM for com.sun.xml.bind:jaxb-osgi:jar:2.2.10 is invalid, transitive dependencies (if any) will not be available, enable debug logging for more details
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ edge-service ---
+[INFO] Deleting /Users/jdoe/examples/spring-gateway-example/edge-service/target
+
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  19.569 s
+[INFO] Finished at: 2019-09-06T15:04:05-07:00
+[INFO] ------------------------------------------------------------------------
+```
+
+If the build is successful, it should create the following:
+
+  - Spring Boot Jars
+  
+    - `edge-service-1.0.0.jar`
+    
+    - `book-service-1.0.0.jar`
+  
+  - Docker Images
+  
+    - `basaki/spring-gateway-edge:1.0.0 ` 
+    
+    - `basaki/spring-gateway-book:1.0.0` 
+    
+ You can list all the docker images in your computer by typing `docker images` command.
+ 
+ ```
+REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
+basaki/spring-gateway-edge           1.0.0               000e04f2ae53        2 minutes ago       530MB
+basaki/spring-gateway-book           1.0.0               c27215b6c3b3        3 days ago          564MB
+
+```
+
+## Starting Applications
+You can start both the applications from the terminal by typing the following command:
+
+```yaml
+java -jar edge-service-1.0.0.jar
+```
+
+The edge service should start up at port `9080`
+
+```
+java -jar book-service-1.0.0.jar
+```
+
+The book service should start up  at port `8080`
+
+
+## Usage
+
+### Basic Authentication
+To create a book using basic authentication:
+
+```
+curl --request POST \
+  --url http://localhost:9080/books \
+  --header 'authorization: Basic amRvZTpoZWxsbw==' \
+  --header 'content-type: application/json' \
+  --data '{
+  "title": "Indra",
+  "author": "Indra'\''s Chronicle"
+}'
+```
+
+### OAuth2 Authentication
+
+```
+curl --request POST \
+  --url http://localhost:9080/books \
+  --header 'authorization: Bearer eyJraWQiOiItM1N6UVhjWDNYc0lFMmNOSnZ6NGRZRzBZemdXVS1Od091THpxYmZ1cWQ0IiwiYWxnIjoiUlMyNTYifQ.eyJ2ZXIiOjEsImp0aSI6IkFULmFIVU5iUHkyU0ZVN1NlOEF2VE5kOGtSQlBvdy1CSGVyQmo2VGZfcENfR2siLCJpc3MiOiJodHRwczovL2Rldi00NjE1MTIub2t0YS5jb20vb2F1dGgyL2RlZmF1bHQiLCJhdWQiOiJhcGk6Ly9kZWZhdWx0IiwiaWF0IjoxNTY3NjQxODYyLCJleHAiOjE1Njc2NDU0NjIsImNpZCI6IjBvYTFhYTFyNDMwdzRBS2o3MzU3Iiwic2NwIjpbImN1c3RvbVNjb3BlIl0sInN1YiI6IjBvYTFhYTFyNDMwdzRBS2o3MzU3IiwiQ2xhaW0xIjpmYWxzZX0.cxKztd_NIOBBHDoC0h6LFYUDCeevc_-DQrrUMrJ9K5tKKuzqtSJoVMCWcmreypsGf6fD7UTFX74FduVnR4sKShzvmB6PsrzGon0AOiJFJPvYYwUEl97sIGENbUHkkufcNubdTMk2D2OrHvdsxMk8f6vnB0min_X1d1tK1kCd5Pd0c-388soWSjfE_mjvYosqZFmRUR8e-MBBP2ZDp5wrP_rmqWEhze7uSk08KS6N9j3R2mZzUTjtNmX7Jf1KbvtFtsAlY_HvSSahf0dUDnwNeMaRrVeTJt5nToaa85Po44P1oKx4f9o3nAvkMO-OiU3PNFt7TlfT8MHt3nnoeupC_g' \
+  --header 'content-type: application/json' \
+  --data '{
+  "title": "Indra",
+  "author": "Indra'\''s Chronicle"
+}'
+```
+
+Your response should look like this:
+
+```json
+{
+  "id": "d4c962fe-386d-4344-a2f4-6209dfac9382",
+  "title": "Indra",
+  "author": "Indra's Chronicle"
+}
+```
+
+## Deploying in Kubernetes Cluster
+Scripts for deploying the `book service` are located in `book-service/src/docker` folder while the scripts for the
+`edge service` are located in `edge-service/src/docker` folder.
+
+### Deploying Book Service
+
+#### Create Namespace
+```
+$ kubectl create -f book-service/src/docker/namespace.yml 
+namespace/gateway-example created
+```
+
+#### Create Config Map
+```
+k$ kubectl create -f book-service/src/docker/config.yml 
+configmap/spring-gateway-book-config created
+```
+
+#### Create Deployment
+```
+$ kubectl create -f book-service/src/docker/deployment.yml 
+deployment.apps/spring-gateway-book created
+```
+
+#### Create Service
+```
+$ kubectl create -f book-service/src/docker/service.yml 
+service/spring-gateway-book-service created
+```
+
+If the book service is deployed successfully, you can access it at `http://localhost:30080/public/books`
+
+### Deploying Edge Service
+You can skip the namespace creation as it's already created in the earlier step.
+
+#### Create Config Map
+```
+k$ kubectl create -f edge-service/src/docker/config.yml 
+configmap/spring-gateway-edge-config created
+```
+
+#### Create Deployment
+```
+$ kubectl create -f edge-service/src/docker/deployment.yml 
+deployment.apps/spring-gateway-edge created
+```
+
+#### Create Service
+```
+$ kubectl create -f edge-service/src/docker/service.yml 
+service/spring-gateway-edge-service created
+```
+
+If the edge service is deployed successfully, you can access it at `http://localhost:31080/books`
+
 [travis-badge]: https://travis-ci.org/indrabasak/spring-gateway-example.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/spring-gateway-example/
 
