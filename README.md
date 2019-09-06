@@ -24,7 +24,7 @@ all its predicates is _true_.
 
   - A **predicate** is boolean valued function.
   
-  - A **filter** provides a way of modifying requests and responses.
+  - A **filter** provides a way of modifying incoming HTTP requests and outgoing HTTP responses.
 
 ### A Route Example
 Here's a simple example of a route used in this project,
@@ -50,6 +50,21 @@ spring:
 
 ![](./img/gateway-example-flow.svg)
 
+### Types of Filter
+Gateway filters can be classified into 3 groups:
+  
+  - **Pre Filters**: These filters are applied to incoming requests.
+  
+  - **Post Filters**: These filters are applied to outgoing request.
+  
+  - **Global Filters**: They are special filters that are conditionally applied to all routes. A good use of a global
+  filter can be authentication of an incoming request.  
+  
+## Security
+This example didn't use Spring security framework as typically used in a Spring Boot application but took advantage of 
+the classes provided in the Spring security libraries.
+
+This example can use both **Basic Authentication** and as well as **Oauth 2.0 authentication**. 
 
 [travis-badge]: https://travis-ci.org/indrabasak/spring-gateway-example.svg?branch=master
 [travis-badge-url]: https://travis-ci.org/indrabasak/spring-gateway-example/
