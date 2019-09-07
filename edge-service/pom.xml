@@ -12,9 +12,9 @@
     <artifactId>edge-service</artifactId>
     <name>Edge Service</name>
 
-<!--    <properties>-->
-<!--        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>-->
-<!--    </properties>-->
+    <properties>
+        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
+    </properties>
 
     <dependencies>
         <dependency>
