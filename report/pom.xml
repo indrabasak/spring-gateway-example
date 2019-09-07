@@ -22,10 +22,18 @@
             <artifactId>edge-service</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.basaki</groupId>
             <artifactId>book-service</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
