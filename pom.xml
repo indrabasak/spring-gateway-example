@@ -24,13 +24,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <prometheus.version>0.11.0</prometheus.version>
         <rest.assured.version>4.0.0</rest.assured.version>
-<!--        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
-<!--        <sonar.jacoco.utReportPath>target/jacoco-ut.exec</sonar.jacoco.utReportPath>-->
-<!--        <sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>-->
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
-        <sonar.language>java</sonar.language>
+        <sonar.jacoco.utReportPath>target/jacoco-ut.exec</sonar.jacoco.utReportPath>
+<!--        <sonar.jacoco.itReportPath>target/jacoco-it.exec</sonar.jacoco.itReportPath>-->
+<!--        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
+<!--        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>-->
+<!--        <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>-->
+<!--        <sonar.language>java</sonar.language>-->
         <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
         <spring.mock.version>3.0.0</spring.mock.version>
@@ -75,25 +75,25 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.4</version>
-                <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
-                    <append>true</append>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.4</version>-->
+<!--                <configuration>-->
+<!--                    <destFile>${sonar.jacoco.reportPath}</destFile>-->
+<!--                    <append>true</append>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>prepare-agent</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
-<!--            <plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
@@ -141,6 +141,7 @@
                         </goals>
                         <configuration>
                             <destFile>${sonar.jacoco.reportPath}</destFile>
+                            <append>true</append>
                             <propertyName>failsafe.argLine</propertyName>
                         </configuration>
                     </execution>
@@ -155,7 +156,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
