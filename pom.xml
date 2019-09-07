@@ -26,7 +26,6 @@
         <rest.assured.version>4.0.0</rest.assured.version>
         <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
         <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.language>java</sonar.language>
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
@@ -116,7 +115,7 @@
                         </goals>
                         <configuration>
                             <append>true</append>
-                            <destFile>${sonar.coverage.jacoco.xmlReportPaths}</destFile>
+                            <destFile>${sonar.jacoco.itReportPath}</destFile>
                         </configuration>
                     </execution>
                 </executions>
