@@ -10,8 +10,7 @@
     </parent>
 
     <artifactId>edge-service</artifactId>
-    <version>1.0.0</version>
-    <name>edge-service</name>
+    <name>Edge Service</name>
 
     <properties>
         <sonar.coverage.jacoco.xmlReportPaths>${basedir}/../${aggregate.report.dir}</sonar.coverage.jacoco.xmlReportPaths>
@@ -135,20 +134,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <goals>-->
-<!--                            <goal>report-aggregate</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>verify</phase>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
 
             <plugin>
                 <groupId>com.spotify</groupId>
