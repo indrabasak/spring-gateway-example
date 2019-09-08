@@ -18,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
 
@@ -94,11 +95,15 @@ public class AuthenticationGlobalFilterTest {
         JwtAuthenticator jwtAtorSuccess = mock(JwtAuthenticator.class);
         when(jwtAtorSuccess.authenticate(any())).thenReturn(jwtCredentials);
 
+        Authenticator authenticator = mock(Authenticator.class);
+        when(authenticator.authenticate(any())).thenThrow(BadCredentialsException.class);
+
         return Arrays.asList(new Object[][]{
                 {new Authenticator[]{basicAtorSuccess}, true, basicCredentials, null},
                 {new Authenticator[]{basicAtorFailure}, false, null, AuthenticationException.class},
                 {new Authenticator[]{jwtAtorSuccess}, true, jwtCredentials, null},
                 {new Authenticator[]{basicAtorFailure2, jwtAtorSuccess}, true, jwtCredentials, null},
+                {new Authenticator[]{authenticator}, false, null, AuthenticationException.class},
         });
     }
 }
