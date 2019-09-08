@@ -10,7 +10,7 @@
     <description>Spring Gateway Example</description>
 
     <properties>
-        <aggregate.report.dir>target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
+        <aggregate.report.dir>edge-service/target/site/jacoco-aggregate/jacoco.xml</aggregate.report.dir>
         <dockerfile.maven.version>1.4.4</dockerfile.maven.version>
         <hamcrest.version>1.3</hamcrest.version>
         <jackson.version>2.8.8</jackson.version>
@@ -24,10 +24,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <prometheus.version>0.11.0</prometheus.version>
         <rest.assured.version>4.0.0</rest.assured.version>
-        <sonar.jacoco.reportPaths>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPaths>
-        <sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
-        <sonar.language>java</sonar.language>
-        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
         <spring.mock.version>3.0.0</spring.mock.version>
@@ -37,6 +33,7 @@
     <modules>
         <module>edge-service</module>
         <module>book-service</module>
+        <module>report</module>
     </modules>
 
     <dependencyManagement>
@@ -98,25 +95,10 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>agent-for-ut</id>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                        <configuration>
-                            <append>true</append>
-                            <destFile>${sonar.jacoco.reportPaths}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>agent-for-it</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <append>true</append>
-                            <destFile>${sonar.jacoco.itReportPath}</destFile>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -126,10 +108,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
                 <configuration>
-                    <forkCount>3</forkCount>
-                    <reuseForks>true</reuseForks>
-                    <argLine>-Xmx1024m</argLine>
-                    <useSystemClassLoader>false</useSystemClassLoader>
+<!--                    <forkCount>3</forkCount>-->
+<!--                    <reuseForks>true</reuseForks>-->
+<!--                    <argLine>-Xmx1024m</argLine>-->
+<!--                    <useSystemClassLoader>false</useSystemClassLoader>-->
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
