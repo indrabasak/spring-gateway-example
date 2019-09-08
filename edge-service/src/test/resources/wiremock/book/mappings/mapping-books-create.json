@@ -1,0 +1,41 @@
+{
+  "id" : "c28630bc-6f0e-34a9-8dcd-260356f73c45",
+  "request" : {
+    "url" : "/books",
+    "method" : "POST",
+    "headers" : {
+      "Authorization" : {
+        "equalTo" : "Basic amRvZTpoZWxsbw=="
+      },
+      "Accept" : {
+        "equalTo" : "*/*"
+      },
+      "Content-Type" : {
+        "equalTo" : "application/json"
+      }
+    },
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\n  \"title\": \"Indra\",\n  \"author\": \"Indra's Chronicle\"\n}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "bodyFileName" : "body-books-create.json",
+    "headers" : {
+      "transfer-encoding" : "chunked",
+      "X-Response-Bye" : "Bye",
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "1; mode=block",
+      "Cache-Control" : "no-cache, no-store, max-age=0, must-revalidate",
+      "Pragma" : "no-cache",
+      "Expires" : "0",
+      "X-Frame-Options" : "DENY",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Sun, 08 Sep 2019 02:03:11 GMT",
+      "X-TXN-COMPLETION-DATE" : "2019-09-07T19:03:10.952903"
+    }
+  },
+  "uuid" : "c28630bc-6f0e-34a9-8dcd-260356f73c45"
+}

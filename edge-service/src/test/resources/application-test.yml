@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: book-id
+          uri: http://localhost:8080
+          predicates:
+            - Path=/books/**
+          filters:
+            - PrefixPath=/public
+            - AddRequestHeader=X-Request-Foo, Bar
+            - AddRequestTimeHeaderPreFilter
+            - AddResponseHeader=X-Response-Bye, Bye
+            - AddResponseTimeHeaderPostFilter
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # auth0
+          issuer-uri: https://ibasak.auth0.com/
+          audience: https://quickstarts/api
+
+security:
+  auth:
+    user: jdoe
+    password: hello
+    routes:
+      book-id:
+        user: userA
+        password: passwordA
+        authenticatorClasses:
+          - com.basaki.edge.security.basic.BasicAuthenticator
+          - com.basaki.edge.security.oauth2.JwtAuthenticator

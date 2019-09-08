@@ -28,6 +28,7 @@
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
         <spring.mock.version>3.0.0</spring.mock.version>
         <swagger.version>2.9.2</swagger.version>
+        <wiremock.version>2.24.1</wiremock.version>
     </properties>
 
     <modules>
