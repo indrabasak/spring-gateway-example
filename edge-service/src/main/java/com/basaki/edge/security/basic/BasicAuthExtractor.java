@@ -42,6 +42,10 @@ public class BasicAuthExtractor implements AuthenticationExtractor<BasicAuthCred
 
         String[] authSegments = encoder.decode(authorization.substring(PREFIX_BASIC.length())).split(":");
 
-        return BasicAuthCredentials.builder().user(authSegments[0]).password(authSegments[1]).build();
+        BasicAuthCredentials credentials = new BasicAuthCredentials();
+        credentials.setUser(authSegments[0]);
+        credentials.setPassword(authSegments[1]);
+
+        return credentials;
     }
 }

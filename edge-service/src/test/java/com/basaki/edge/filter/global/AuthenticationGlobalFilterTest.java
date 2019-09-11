@@ -79,8 +79,9 @@ public class AuthenticationGlobalFilterTest {
     }
 
     public Iterable<Object[]> parametersForTestFilter() {
-        BasicAuthCredentials basicCredentials =
-                BasicAuthCredentials.builder().user("user1").password("pwd0").build();
+        BasicAuthCredentials basicCredentials = new BasicAuthCredentials();
+        basicCredentials.setUser("user1");
+        basicCredentials.setPassword("pwd0");
 
         BasicAuthenticator basicAtorSuccess = mock(BasicAuthenticator.class);
         when(basicAtorSuccess.authenticate(any())).thenReturn(basicCredentials);

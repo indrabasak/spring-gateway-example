@@ -1,11 +1,11 @@
 package com.basaki.edge.security.basic;
 
 import com.basaki.edge.security.Credentials;
-import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
 public class BasicAuthCredentials implements Credentials {
     private String user;
 
