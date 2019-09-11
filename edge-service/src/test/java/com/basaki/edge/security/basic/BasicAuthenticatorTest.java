@@ -42,6 +42,8 @@ public class BasicAuthenticatorTest {
         BasicAuthenticator authenticator = new BasicAuthenticator(extractor, provider);
         BasicAuthCredentials credentials = authenticator.authenticate(request);
         assertNotNull(credentials);
+        assertNotNull(credentials.getUser());
+        assertNotNull(credentials.getPassword());
     }
 
     public Iterable<Object[]> parametersForTestAuthenticate() {

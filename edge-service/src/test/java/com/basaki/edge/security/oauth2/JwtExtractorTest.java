@@ -42,6 +42,7 @@ public class JwtExtractorTest {
         return Arrays.asList(new Object[][]{
                 {getRequest(null, null), BadCredentialsException.class},
                 {getRequest("Authorization", ""), BadCredentialsException.class},
+                {getRequest("Authorization", null), BadCredentialsException.class},
                 {getRequest("Authorization", "NotBearer"), BadCredentialsException.class},
                 {getRequest("Authorization", "Bearer abcd!@#$"), BadCredentialsException.class},
                 {getRequest("Authorization", "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlEwWXlRVGMyTWpGRVJEQXhOa0ZHTVRGQlJqZzJNRVZGTUVFd01UZENOREV6TmpJd1JqTTFOQSJ9.eyJpc3MiOiJodHRwczovL2liYXNhay5hdXRoMC5jb20vIiwic3ViIjoieUhKaUplY0xuM2JkOEEyb3VtbVJhMDhqcDl0MHkxVUxAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcXVpY2tzdGFydHMvYXBpIiwiaWF0IjoxNTY3Nzg5MDQ2LCJleHAiOjE1Njc4NzU0NDYsImF6cCI6InlISmlKZWNMbjNiZDhBMm91bW1SYTA4anA5dDB5MVVMIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.aFzEvDwsNvUge5yAkzLJfrlpjtxffO2M7V0q0sGF9udi99KVEK3vQ2KXZm_N7v-ASrm-LF7twgPzdiln6tVMWkGtvFmpKx2YQwmXsEDYZGfrHOwb5XjY2AF8eXXsiJQEyI_SOSb-CzoAxFL34eIPeFa77zR6nmcIZAJyCdTtrMd1S4XIENPW1aWvwK5BVqFk6VpJ33LdemQYthQkNMYJF_v8dgXHbqSIAkdOfg4CUKXRObABTc4LnARMiFGFa-c2aQBMj1vP6PRE7h41Fr6MTHkUSVfFFayyVUFI3mH3tfiNHTqQiUZIpNJNknRYCTXDJq2V4mLgWfH9BFjelP65dg"),

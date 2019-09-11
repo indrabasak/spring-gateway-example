@@ -52,6 +52,8 @@ public class BasicAuthExtractorTest {
                         BadCredentialsException.class},
                 {getRequest("Authorization", ""), null, null,
                         BadCredentialsException.class},
+                {getRequest("Authorization", null), null, null,
+                        BadCredentialsException.class},
                 {getRequest("Authorization", "NotBasic"), null, null,
                         BadCredentialsException.class},
                 {getRequest("Authorization", "Basic " + encoder.encode("user:password")),
